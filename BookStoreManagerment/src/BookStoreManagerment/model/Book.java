@@ -1,0 +1,120 @@
+package BookStoreManagerment.model;
+
+import java.util.Date;
+import BookStoreManagerment.repository.IModel;
+import BookStoreManagerment.repository.ISearch;
+
+import static StringFormat.centerString.centerString;
+import static StringFormat.dateFormat.ddMMMyyyy;
+
+public class Book implements IModel<Book>, ISearch<Book> {
+    private long id;
+    private String name;
+    private String author;
+    private long price;
+    private long avaiable;
+    private long amount;
+    private Date dateAdd;
+
+    public Book() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    @Override
+    public void update(Book objNew) {
+        this.name = objNew.getName();
+        this.author = objNew.getAuthor();
+        this.price = objNew.getPrice();
+        this.avaiable = objNew.getAvaiable();
+        this.amount = objNew.getAmount();
+        this.dateAdd = objNew.getDateAdd();
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public long getPrice() {
+        return price;
+    }
+
+    public void setPrice(long price) {
+        this.price = price;
+    }
+
+    public long getAvaiable() {
+        return avaiable;
+    }
+
+    public void setAvaiable(long avaiable) {
+        this.avaiable = avaiable;
+    }
+
+    public long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(long amount) {
+        this.amount = amount;
+    }
+
+    public Date getDateAdd() {
+        return dateAdd;
+    }
+
+    public void setDateAdd(Date dateAdd) {
+        this.dateAdd = dateAdd;
+    }
+
+    public void updateBook(Book book){
+//        this.setId(book.getId());
+        this.setName(book.getName());
+        this.setAuthor(book.getAuthor());
+        this.setPrice(book.getPrice());
+        this.setAvaiable(book.getAvaiable());
+        this.setAmount(book.getAmount());
+        this.setDateAdd(book.getDateAdd());
+    }
+
+    public Book(long id, String name, String author, long price, long avaiable, long amount, Date dateAdd) {
+        this.id = id;
+        this.name = name;
+        this.author = author;
+        this.price = price;
+        this.avaiable = avaiable;
+        this.amount = amount;
+        this.dateAdd = dateAdd;
+    }
+
+    public String toViewer(){
+        return String.format(
+                "%5s| %-50s| %-20s|%,10d đ|%10s|%10s|%16s|\n",
+                centerString(5, String.valueOf(this.getId())),
+                this.getName(),
+                this.getAuthor(),
+                this.getPrice(),
+                this.getAvaiable(),
+                this.getAmount(),
+                centerString(16, ddMMMyyyy(this.getDateAdd()))
+        );
+    }
+}
