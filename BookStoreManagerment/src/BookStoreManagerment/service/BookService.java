@@ -1,7 +1,8 @@
 package BookStoreManagerment.service;
 
 import BookStoreManagerment.model.Book;
-import BookStoreManagerment.repository.BookRepository;
+import BookStoreManagerment.repository.file.BookRepository;
+//import BookStoreManagerment.repository.inmemory.BookRepository;
 
 import java.util.List;
 
@@ -13,14 +14,20 @@ public class BookService {
     }
 
     public List<Book> getAllBooks() {
+
         return bookRepository.getAll();
     }
 
     public List<Book> searchBooksByAmount(long amountBook){
-        return bookRepository.searchByAmount(amountBook);
+         return bookRepository.searchByAmount(amountBook);
     }
     public List<Book> searchBooksByName(String nameBook){
+
         return bookRepository.searchByName(nameBook);
+    }
+    public List<Book> searchBooksByAuthor(String nameBook){
+
+        return bookRepository.searchByAuthor(nameBook);
     }
 
     public void updateBooktById(long id, Book book){

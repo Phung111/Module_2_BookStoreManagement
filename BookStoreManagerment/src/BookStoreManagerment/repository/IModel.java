@@ -7,4 +7,5 @@ public interface IModel<T> {
     void update(T objNew);
 
     String getName();
+    T parseData(String line);
 }

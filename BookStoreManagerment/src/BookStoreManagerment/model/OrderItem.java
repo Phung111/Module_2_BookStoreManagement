@@ -7,23 +7,7 @@ public class OrderItem implements IModel<OrderItem> {
     private long idOrder;
     private long idBook;
     private long amount;
-    private String nameBook;
 
-    public OrderItem(long id, long idOrder, long idBook, long amount, String nameBook) {
-        this.id = id;
-        this.idOrder = idOrder;
-        this.idBook = idBook;
-        this.amount = amount;
-        this.nameBook = nameBook;
-    }
-
-    public String getNameBook() {
-        return nameBook;
-    }
-
-    public void setNameBook(String nameBook) {
-        this.nameBook = nameBook;
-    }
 
     public OrderItem(long id, long idOrder, long idBook, long amount) {
         this.id = id;
@@ -33,13 +17,6 @@ public class OrderItem implements IModel<OrderItem> {
 
     }
 
-    public OrderItem(long id, long idBook, long amount) {
-        this.id = id;
-        this.idOrder = idOrder;
-        this.idBook = idBook;
-        this.amount = amount;
-
-    }
     public OrderItem() {
 
     }
@@ -58,6 +35,25 @@ public class OrderItem implements IModel<OrderItem> {
     @Override
     public String getName() {
         return null;
+    }
+
+    @Override
+    public OrderItem parseData(String line) {
+    //1,1,1,5
+        // idOrderItem, idOrder, idBook, amount
+        String[] items = line.split(",");
+        long idOrderItem = Long.parseLong(items[0]);
+        long idOrder = Long.parseLong(items[1]);
+        long idBook = Long.parseLong(items[2]);
+        long amount = Long.parseLong(items[3]);
+        OrderItem orderItem = new OrderItem(idOrderItem, idOrder, idBook, amount);
+        return  orderItem;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s,%s,%s,%s",
+                this.id, this.idOrder, this.idBook, this.amount);
     }
 
     public void setId(long id) {

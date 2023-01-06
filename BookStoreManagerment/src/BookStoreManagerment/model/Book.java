@@ -3,9 +3,10 @@ package BookStoreManagerment.model;
 import java.util.Date;
 import BookStoreManagerment.repository.IModel;
 import BookStoreManagerment.repository.ISearch;
+import BookStoreManagerment.utils.DateUtils;
 
-import static StringFormat.centerString.centerString;
-import static StringFormat.dateFormat.ddMMMyyyy;
+import static zStringFormat.centerString.centerString;
+import static zStringFormat.dateFormat.ddMMMyyyy;
 
 public class Book implements IModel<Book>, ISearch<Book> {
     private long id;
@@ -39,6 +40,29 @@ public class Book implements IModel<Book>, ISearch<Book> {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public Book parseData(String line) {
+        //5,5 cm/s,Shinkai Makoto,85000,1,1,20-12-2022 08:30:45
+        String[] items = line.split(",");
+        long id = Long.parseLong(items[0]);
+        String name = items[1];
+        String author = items[2];
+        long price = Long.parseLong(items[3]);
+        long avaiable = Long.parseLong(items[4]);
+        long amount = Long.parseLong(items[5]);
+        Date dateAdd = DateUtils.parseDate(items[6]);
+
+        //id, name, author, price, avaiable, amount, dateAdd
+        Book b = new Book(id, name, author, price, avaiable, amount, dateAdd);
+        return b;
+    }
+    @Override
+    public String toString(){
+        //5,5 cm/s,Shinkai Makoto,85000,1,1,20-12-2022 08:30:
+        String strDate = DateUtils.convertDateToString(this.dateAdd);
+        return String.format("%s,%s,%s,%s,%s,%s,%s", this.id, this.name, this.author, this.price, this.avaiable, this.amount, strDate);
     }
 
     public void setName(String name) {

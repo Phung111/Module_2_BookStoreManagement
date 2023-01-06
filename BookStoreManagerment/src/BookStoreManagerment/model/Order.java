@@ -1,6 +1,7 @@
 package BookStoreManagerment.model;
 
 import BookStoreManagerment.repository.IModel;
+import BookStoreManagerment.utils.DateUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -25,10 +26,34 @@ public class Order implements IModel<Order> {
         this.orderItems = objNew.getOrderItems();
         this.eStatusOrder = objNew.geteStatusOrder();
     }
+    public Order() {
+
+    }
 
     @Override
     public String getName() {
         return null;
+    }
+
+
+    @Override
+    public Order parseData(String line) {
+        String[] items = line.split(",");
+        long idOrder = Long.parseLong(items[0]);
+        String nameCustomer = items[1];
+        long total = Long.parseLong(items[2]);
+        Date createAt = DateUtils.parseDate(items[3]);
+        EStatusOrder eStatusOrder = EStatusOrder.getEStatusOrderByName(items[4]);
+
+        Order order = new Order(idOrder, nameCustomer, total, createAt, eStatusOrder);
+        return order;
+    }
+    @Override
+    public String toString() {
+        //1,Quang Dang,50000,8-3-1999,paid
+        //idOrder,nameCustomer,total,date,eStatusOrder
+        return String.format("%s,%s,%s,%s,%s",
+                this.idOrder, this.nameCustomer, this.total, DateUtils.convertDateToString(this.createAt), this.eStatusOrder);
     }
 
     public void setIdOrder(long idOrder) {
