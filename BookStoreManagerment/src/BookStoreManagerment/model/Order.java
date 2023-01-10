@@ -1,19 +1,19 @@
 package BookStoreManagerment.model;
 
 import BookStoreManagerment.repository.IModel;
+import BookStoreManagerment.repository.ISearch;
 import BookStoreManagerment.utils.DateUtils;
 
 import java.util.Date;
 import java.util.List;
 
-public class Order implements IModel<Order> {
+public class Order implements IModel<Order>{
 
     private long idOrder;
     private String nameCustomer;
     private long total;
     private Date createAt;
     private EStatusOrder eStatusOrder;
-    private List<OrderItem> orderItems;
     public long getId() {
         return idOrder;
     }
@@ -23,7 +23,6 @@ public class Order implements IModel<Order> {
         this.nameCustomer = objNew.getNameCustomer();
         this.createAt = objNew.getCreateAt();
         this.total = objNew.getTotal();
-        this.orderItems = objNew.getOrderItems();
         this.eStatusOrder = objNew.geteStatusOrder();
     }
     public Order() {
@@ -32,8 +31,9 @@ public class Order implements IModel<Order> {
 
     @Override
     public String getName() {
-        return null;
+        return nameCustomer;
     }
+
 
 
     @Override
@@ -92,20 +92,12 @@ public class Order implements IModel<Order> {
         this.eStatusOrder = eStatusOrder;
     }
 
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
-    }
 
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
-    }
-
-    public Order(long idOrder, String nameCustomer, long total, Date createAt, List<OrderItem> orderItems) {
+    public Order(long idOrder, String nameCustomer, long total, Date createAt) {
         this.idOrder = idOrder;
         this.nameCustomer = nameCustomer;
         this.total = total;
         this.createAt = createAt;
-        this.orderItems = orderItems;
     }
 
     public Order(long idOrder, String nameCustomer, long total, Date createAt, EStatusOrder eStatusOrder) {

@@ -7,13 +7,13 @@ public class isContinue {
     public static boolean isContinue(String string,String string2) {
         do {
             System.out.println("--Bạn có muốn tiếp tục " + string + "?--");
-            System.out.println("[y] Đồng ý");
-            System.out.println("[n] Thoát (" + string2 + ")");
-            String choice = scanner.nextLine();
+            System.out.println("[1] Đồng ý");
+            System.out.println("[2] Thoát (" + string2 + ")");
+            int choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
-                case "y":
+                case 1:
                     return true;
-                case "n":
+                case 2:
                     return false;
                 default:
                     System.out.println("--Chọn sai chức năng--");
@@ -22,4 +22,25 @@ public class isContinue {
             }
         } while (true);
     }
+
+    public static boolean isPay() {
+        do {
+            System.out.println("--Xác nhận thanh toán--");
+            System.out.println("[1] Đồng ý");
+            System.out.println("[2] Huỷ");
+            int choice = Integer.parseInt(scanner.nextLine());
+            switch (choice) {
+                case 1:
+                    return true;
+                case 2:
+                    return false;
+                default:
+                    System.out.println("--Chọn sai chức năng--");
+                    System.out.println("--Nhập lại--");
+                    break;
+            }
+        } while (true);
+    }
+
+
 }

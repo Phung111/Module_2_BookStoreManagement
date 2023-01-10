@@ -1,100 +1,113 @@
 package BookStoreManagerment.model;
 
+import BookStoreManagerment.repository.IModel;
+
 import java.time.Instant;
 
-public class Account {
-    private long accountID;
-    private String userName;
-    private String passWord;
-    private String fullName;
-    private AccountTypes accountTypes;
-    private Instant atCreated;
-    private Instant atUpdated;
+public class Account implements IModel<Account> {
+
+    private long id;
+    private String account;
+    private String password;
+    private String name;
+    private String email;
+    private String address;
+    private ERole erole;
 
     public Account() {
     }
 
-    public Account(long accountID, String userName, String passWord, String fullName, AccountTypes accountTypes, Instant atCreated, Instant atUpdated) {
-        this.accountID = accountID;
-        this.userName = userName;
-        this.passWord = passWord;
-        this.fullName = fullName;
-        this.accountTypes = accountTypes;
-        this.atCreated = atCreated;
-        this.atUpdated = atUpdated;
+    public Account(long id, String account, String password, String name, String email, String address, ERole erole) {
+        this.id = id;
+        this.account = account;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.erole = erole;
     }
 
-    public static Account parseAccount(String raw){
-        String[] fields = raw.split(",");
-        long accountID = Long.parseLong(fields[0]);
-        String userName = fields[1];
-        String passWord = fields[2];
-        String fullName = fields[3];
-        AccountTypes accountTypes = AccountTypes.getAccountTypes(fields[4]);
-        Instant atCreated = Instant.parse(fields[5]);
-        Instant atUpdated = Instant.parse(fields[6]);
-        return new Account(accountID, userName, passWord,fullName,accountTypes,atCreated,atUpdated);
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public ERole getErole() {
+        return erole;
+    }
+
+    public void setErole(ERole erole) {
+        this.erole = erole;
     }
 
     @Override
-    public String toString() {
-        return String.format("%d,%s,%s,%s,%s,%s,%s\n",
-                accountID,userName,passWord,fullName,accountTypes.getValue(),atCreated,atUpdated);
+    public long getId() {
+        return id;
     }
 
-    public long getAccountID() {
-        return accountID;
+    @Override
+    public void update(Account objNew) {
+        this.id = objNew.getId();
+        this.account = objNew.getAccount();
+        this.password = objNew.getPassword();
+        this.name = objNew.getName();
+        this.email = objNew.getEmail();
+        this.address = objNew.getEmail();
+        this.erole = objNew.getErole();
     }
 
-    public void setAccountID(long accountID) {
-        this.accountID = accountID;
+    @Override
+    public String getName() {
+        return name;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassWord() {
-        return passWord;
-    }
-
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public AccountTypes getAccountTypes() {
-        return accountTypes;
-    }
-
-    public void setAccountTypes(AccountTypes accountTypes) {
-        this.accountTypes = accountTypes;
-    }
-
-    public Instant getAtCreated() {
-        return atCreated;
-    }
-
-    public void setAtCreated(Instant atCreated) {
-        this.atCreated = atCreated;
-    }
-
-    public Instant getAtUpdated() {
-        return atUpdated;
-    }
-
-    public void setAtUpdated(Instant atUpdated) {
-        this.atUpdated = atUpdated;
+    @Override
+    public Account parseData(String line) {
+        //1,admin,admin,NGUYỄN VĂN ADMIN,admin@gmail.com,52 Ba Trieu,admin
+        String[] items = line.split(",");
+        long id = Long.parseLong(items[0]);
+        String account = items[1];
+        String password = items[2];
+        String name = items[3];
+        String email = items[4];
+        String address = items[5];
+        ERole eRole = ERole.toERole(Integer.parseInt(items[6]));
+        Account newAccount = new Account(id, account, password, name, email, address, eRole);
+        return newAccount;
     }
 }

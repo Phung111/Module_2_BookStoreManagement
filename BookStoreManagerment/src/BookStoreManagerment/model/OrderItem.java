@@ -20,8 +20,11 @@ public class OrderItem implements IModel<OrderItem> {
     public OrderItem() {
 
     }
+    public long getId(){
+        return id;
+    }
 
-    public long getId() {
+    public long getIdOrderItem() {
         return id;
     }
 

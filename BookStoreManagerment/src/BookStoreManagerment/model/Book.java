@@ -110,7 +110,7 @@ public class Book implements IModel<Book>, ISearch<Book> {
     }
 
     public void updateBook(Book book){
-//        this.setId(book.getId());
+        this.setId(book.getId());
         this.setName(book.getName());
         this.setAuthor(book.getAuthor());
         this.setPrice(book.getPrice());

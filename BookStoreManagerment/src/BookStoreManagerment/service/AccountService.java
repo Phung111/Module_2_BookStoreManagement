@@ -7,48 +7,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccountService {
-    private List<Account> accounts;
     private AccountRepository accountRepository;
     public AccountService(){
         accountRepository = new AccountRepository();
     }
 
-    public List<Account> getAllAccounts(){
-        return accountRepository.getAll();
-    }
-
-    public Account login(String username, String password){
-        List<Account> accountList = getAllAccounts();
-        try {
-            for (Account account : accountList){
-                if (account.getUserName().equals(username) &&
-                        account.getPassWord().equals(password)){
-                    return account;
-                }
+    public Account checkAccountPassword(String account, String password) {
+        List<Account> list = accountRepository.getAll();
+        for (int i = 0; i < list.size(); i++){
+            boolean check = list.get(i).getAccount().equals(account) && list.get(i).getPassword().equals(password);
+            if(check) {
+                return list.get(i);
             }
-        } catch (NullPointerException nullPointerException){
-            return null;
         }
         return null;
     }
 
-    public boolean isLoginUsername(String username){
-        List<Account> accountList = getAllAccounts();
-        for (Account account : accountList){
-            if (account.getUserName().equals(username)){
-                return true;
+    public Account checkAccount(String account) {
+        List<Account> list = accountRepository.getAll();
+        for (int i = 0; i < list.size(); i++){
+            boolean check = list.get(i).getAccount().equals(account);
+            if(check) {
+                return list.get(i);
             }
         }
-        return false;
+        return null;
     }
-    public boolean isLoginUPassword(String password){
-        List<Account> accountList = getAllAccounts();
-        for (Account account : accountList){
-            if (account.getPassWord().equals(password)){
-                return true;
+
+    public Account checktPassword(String password) {
+        List<Account> list = accountRepository.getAll();
+        for (int i = 0; i < list.size(); i++){
+            boolean check = list.get(i).getPassword().equals(password);
+            if(check) {
+                return list.get(i);
             }
         }
-        return false;
+        return null;
     }
 
 }

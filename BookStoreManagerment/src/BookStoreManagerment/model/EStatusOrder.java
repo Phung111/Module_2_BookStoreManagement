@@ -3,7 +3,10 @@ package BookStoreManagerment.model;
 public enum EStatusOrder {
     NEW("new", 1),
     PAID("paid", 2),
-    CANCELED("canceled", 3);
+    CANCELED("canceled", 3),
+    BORROW("borrow", 4),
+    BORROWPAID("bnp", 5),
+    BORROWING("borrowing", 6);
 
     private String value;
     private long id;

@@ -12,8 +12,8 @@ public class formatLongInput {
         String longNumber;
         do {
             longNumber = scanner.nextLine();
-            if (longNumber.equals("#")){
-                longNumber = "#";
+            if (longNumber.equals(".")){
+                longNumber = ".";
                 break;
             } else {
                 isLong = ValidateUtils.isLongNumber(String.valueOf(longNumber));
@@ -30,8 +30,8 @@ public class formatLongInput {
         String date;
         do{
             date = scanner.nextLine();
-            if(date.equals("#")){
-                date = "#";
+            if(date.equals(".")){
+                date = ".";
                 break;
             } else {
                 isDate = ValidateUtils.isDate(String.valueOf(date));

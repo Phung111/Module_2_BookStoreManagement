@@ -2,6 +2,7 @@ package BookStoreManagerment.repository.file;
 
 import BookStoreManagerment.repository.IModel;
 import BookStoreManagerment.repository.ISearch;
+import BookStoreManagerment.repository.ISearchByKeyWord;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,16 @@ public abstract class FileContext<T> {
 
     public List<T> getAll(){
         return fileService.readData(filePath, tClass);
+    }
+    public List<T> searchByKeyWord(String keyword, ISearchByKeyWord<T> iSearchByKeyWord) {
+        List<T> list = getAll();
+        List<T> searchResult = new ArrayList<>() ;
+            for (int i = 0; i < list.size(); i++) {
+                if(iSearchByKeyWord.searchByKeyWord(keyword, list.get(i))){
+                    searchResult.add(list.get(i));
+                }
+        }
+            return searchResult;
     }
 
     public List<T> searchByAmount(long amount) {
@@ -47,10 +58,6 @@ public abstract class FileContext<T> {
             }
 
         }
-//        if (searchNameResult.size() == 0) {
-//            System.out.println("Not found any Book");
-//            return null;
-//        }
         return searchNameResult;
     }
     public List<T> searchByAuthor(String author) {
@@ -74,6 +81,17 @@ public abstract class FileContext<T> {
             }
         }
         return null;
+    }
+    public List<T> findListById(long id){
+        List<T> list = getAll();
+        List<T> resultList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++){
+            IModel<T> iModel = (IModel<T>) list.get(i);
+            if(iModel.getId() == id){
+                resultList.add(list.get(i));
+            }
+        }
+        return resultList;
     }
     public  void deleteById(long id){
         List<T> list = getAll();

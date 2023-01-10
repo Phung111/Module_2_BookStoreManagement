@@ -1,4 +1,4 @@
-package BookStoreManagerment.view.book;
+package BookStoreManagerment.view;
 
 
 import BookStoreManagerment.comparator.ComparatorByAmount;
@@ -6,6 +6,7 @@ import BookStoreManagerment.comparator.ComparatorById;
 import BookStoreManagerment.comparator.ComparatorByName;
 import BookStoreManagerment.comparator.ComparatorByPrice;
 import BookStoreManagerment.model.Book;
+import BookStoreManagerment.model.ERole;
 import BookStoreManagerment.service.BookService;
 import BookStoreManagerment.utils.DateUtils;
 
@@ -16,77 +17,121 @@ import static zStringFormat.formatLongInput.inputDate;
 import static zStringFormat.formatLongInput.inputLong;
 import static zStringFormat.isContinue.isContinue;
 
-public class BookView {
-    private Scanner scanner = new Scanner(System.in);
+public class BookView extends GenericView {
     private BookService bookService;
     public BookView(){
         bookService = new BookService();
     }
-
-    public void laucher(){
-        boolean isContinue = false;
-        do{
-            System.out.println("-------------------------");
-            System.out.println("Menu quản lý sách       |");
-            System.out.println("-------------------------");
-            System.out.println("[1]Xem danh sách        |");
-            System.out.println("[2]Thêm sách            |");
-            System.out.println("[3]Sửa thông tin sách   |");
-            System.out.println("[4]Xoá sách             |");
-            System.out.println("[5]Sắp xếp sách         |");
-            System.out.println("[6]Tìm kiếm sách        |");
-            System.out.println("-------------------------");
-            System.out.println("--Chọn chức năng--");
-            String choiceStr = inputLong();
-            if (choiceStr.equals("#")){
-                break;
-            }
-            int choice = Integer.parseInt(choiceStr);
-            switch (choice) {
-                case 1:
-                    showBookListAndPage1();
-                    showBookListAndPage();
+    @Override
+    public void launcher() {
+        if (account.getErole() == ERole.ADMIN){
+            boolean isContinue = false;
+            do {
+                System.out.println("-------------------------");
+                System.out.println("Menu Book       |");
+                System.out.println("-------------------------");
+                System.out.println("[1]Xem danh sách        |");
+                System.out.println("[2]Thêm sách            |");
+                System.out.println("[3]Sửa thông tin sách   |");
+                System.out.println("[4]Xoá sách             |");
+                System.out.println("[5]Sắp xếp sách         |");
+                System.out.println("[6]Tìm kiếm sách        |");
+                System.out.println("[7]Thuê sách            |");
+                System.out.println("-------------------------");
+                System.out.println("--Chọn chức năng--");
+                String choiceStr = inputLong();
+                if (choiceStr.equals(".")){
                     break;
-                case 2:
-                    addBookView();
+                }
+                int choice = Integer.parseInt(choiceStr);
+                switch (choice) {
+                    case 1:
+                        showBookListAndPage();
+                        break;
+                    case 2:
+                        addBookView();
+                        break;
+                    case 3:
+                        editBookView();
+                        break;
+                    case 4:
+                        deleteBookView();
+                        break;
+                    case 5:
+                        sortBookView();
+                        break;
+                    case 6:
+                        searchBookView();
+                        break;
+                }
+                isContinue = isContinue("Quản lý sách","Hoàn toàn");
+            } while (isContinue);
+        } else {
+            boolean isContinue = false;
+            do {
+                System.out.println("-------------------------");
+                System.out.println("Menu Book               |");
+                System.out.println("-------------------------");
+                System.out.println("[1]Xem danh sách        |");
+                System.out.println("[2]Sắp xếp sách         |");
+                System.out.println("[3]Tìm kiếm sách        |");
+                System.out.println("[4]Thuê sách            |");
+                System.out.println("[5]Book Coffee          |");
+                System.out.println("-------------------------");
+                System.out.println("--Chọn chức năng--");
+                String choiceStr = inputLong();
+                if (choiceStr.equals(".")){
                     break;
-                case 3:
-                    editBookView();
-                    break;
-                case 4:
-                    deleteBookView();
-                    break;
-                case 5:
-                    sortBookView();
-                    break;
-                case 6:
-                    searchBookView();
-                    break;
-            }
-            isContinue = isContinue("Quản lý sách","Hoàn toàn");
-        } while (isContinue);
+                }
+                int choice = Integer.parseInt(choiceStr);
+                switch (choice) {
+                    case 1:
+                        showBookListAndPage();
+                        break;
+                    case 2:
+                        sortBookView();
+                        break;
+                    case 3:
+                        searchBookView();
+                        break;
+                    case 4:
+//                        hireBookView();
+                        break;
+                    case 5:
+//                        bookcoffee();
+                        break;
+                }
+                isContinue = isContinue("Quản lý sách","Hoàn toàn");
+            } while (isContinue);
+        }
     }
 
     public void showBookListAndPage() {
-        boolean isContinue = false;
+        showBookListAndPage1();
+        boolean isContinue = true;
         do {
-            System.out.println("--Nhập page bạn muốn xem--");
-            String pageStr = inputLong();
-            if (pageStr.equals("#")){
-                return;
-            }
-            long indexPage = Long.parseLong(pageStr);
-            long numberOfPage = 5;
-            List<Book> books = bookService.getAllBooks();
-            long pageSize = (long) Math.ceil(((double) books.size()/numberOfPage));
-            long fromIndex = (indexPage-1)*numberOfPage;
-            long toIndex = fromIndex + numberOfPage;
-            if (indexPage == pageSize){
-                toIndex = books.size();
-            }
-            showBookList(books.subList((int) fromIndex, (int) toIndex));
-            System.out.println("Số trang " + pageSize +" ------------------------------------------------------------------------------------------------------------------ Page "+ indexPage);
-            isContinue = isContinue("xem page khác","Menu quản lý sách");
+                isContinue = isContinue("Xem page khác", "");
+                if(isContinue == false){
+                    break;
+                }
+                System.out.println("--Nhập page bạn muốn xem--");
+                String pageStr = inputLong();
+                if (pageStr.equals(".")){
+                    isContinue = false;
+                    return;
+                }
+                long indexPage = Long.parseLong(pageStr);
+                long numberOfPage = 5;
+                List<Book> books = bookService.getAllBooks();
+                long pageSize = (long) Math.ceil(((double) books.size()/numberOfPage));
+                long fromIndex = (indexPage-1)*numberOfPage;
+                long toIndex = fromIndex + numberOfPage;
+                if (indexPage == pageSize){
+                    toIndex = books.size();
+                }
+                showBookList(books.subList((int) fromIndex, (int) toIndex));
+                System.out.println("Số trang " + pageSize +" ------------------------------------------------------------------------------------------------------------------ Page "+ indexPage);
+
         } while (isContinue);
     }
     public void showBookListAndPage1() {
@@ -116,7 +161,7 @@ public class BookView {
             System.out.println("-----------------------------");
             System.out.println("--Chọn chức năng--");
             String choiceStr = inputLong();
-            if (choiceStr.equals("#")){
+            if (choiceStr.equals(".")){
                 break;
             }
             int choice = Integer.parseInt(choiceStr);
@@ -142,7 +187,7 @@ public class BookView {
     private void searchBookViewById() {
         System.out.println("--Nhập id bạn muốn tìm kiếm--");
         String idStr = inputLong();
-        if (idStr.equals("#")){
+        if (idStr.equals(".")){
             return;
         }
         long idBookSearch = Long.parseLong(idStr);
@@ -217,7 +262,7 @@ public class BookView {
             System.out.println("-----------------------------");
             System.out.println("--Chọn chức năng--");
             String choiceStr = inputLong();
-            if (choiceStr.equals("#")){
+            if (choiceStr.equals(".")){
                 break;
             }
             int choice = Integer.parseInt(choiceStr);
@@ -279,7 +324,7 @@ public class BookView {
             System.out.println("-----------------------------");
             System.out.println("--Chọn chức năng--");
             String choiceStr = inputLong();
-            if (choiceStr.equals("#")){
+            if (choiceStr.equals(".")){
                 break;
             }
             int choice = Integer.parseInt(choiceStr);
@@ -310,81 +355,6 @@ public class BookView {
             editBookViewById();
         }
     }
-//    public void editBookViewById(){
-//        System.out.println("Nhập Id bạn muốn sửa");
-//        long idBook = Long.parseLong(scanner.nextLine());
-//        Book book = bookService.findBookById(idBook);
-//        if (book != null) {
-//            System.out.println("Book tìm được theo Id bạn vừa nhập");
-//            showBookListHeader(book);
-//            System.out.println("-----------------------------");
-//            System.out.println("Menu thông tin bạn muốn sửa |");
-//            System.out.println("-----------------------------");
-//            System.out.println("[1]Name                     |");
-//            System.out.println("[2]Author                   |");
-//            System.out.println("[3]Price                    |");
-//            System.out.println("[4]Avaible                  |");
-//            System.out.println("[5]Amount                   |");
-//            System.out.println("[6]DateAdd                  |");
-//            System.out.println("[7]Sửa tất cả thông tin     |");
-//            System.out.println("-----------------------------");
-//            int choice = Integer.parseInt(scanner.nextLine());
-//            switch (choice){
-//                case 1:
-//                    System.out.println("--Nhập Name mới cho sách--");
-//                    String newNameBook = scanner.nextLine();
-//                    if (newNameBook.equals("#")){
-//                        break;
-//                    }
-//                    book.setName(newNameBook);
-//                    break;
-//                case 2:
-//                    System.out.println("--Nhập Author mới cho sách--");
-//                    String newAuthorBook = scanner.nextLine();
-//                    if (newAuthorBook.equals("#")){
-//                        break;
-//                    }
-//                    book.setName(newAuthorBook);
-//                    break;
-//                case 3:
-//                    System.out.println("--Nhập Price mới cho sách--");
-//                    String newPriceBookStr = inputLong();
-//                    if (newPriceBookStr.equals("#")){
-//                        break;
-//                    }
-//                    long newPriceBook = Long.parseLong(newPriceBookStr);
-//                    book.setPrice(newPriceBook);
-//                    break;
-//                case 4:
-//                    System.out.println("--Nhập Avaiable mới cho sách--");
-//                    String newAvaiableBookStr = inputLong();
-//                    if (newAvaiableBookStr.equals("#")){
-//                        break;
-//                    }
-//                    long newAvaiableBook = Long.parseLong(newAvaiableBookStr);
-//                    book.setAvaiable(newAvaiableBook);
-//                    break;
-//                case 5:
-//                    editAmountBookViewById(book);
-//                    break;
-//                case 6:
-//                    System.out.println("--Nhập DateAdd mới cho sách--");
-//                    System.out.println("--(ngày-tháng-năm giờ:phút:giây)--");
-//                    String newDateAddBookStr = inputDate();
-//                    if (newDateAddBookStr.equals("#")){
-//                        break;
-//                    }
-//                    Date newDateAddBook = DateUtils.parseDate(newDateAddBookStr);
-//                    book.setDateAdd(newDateAddBook);
-//                    break;
-//
-//            }
-//            bookService.updateBooktById(idBook, book);
-//            showBookList(bookService.getAllBooks());
-//        }else{
-//            System.out.println("--ID không tồn tại--");
-//        }
-//    }
     public void editBookViewById(){
         System.out.println("Nhập Id bạn muốn sửa");
         long idBook = Long.parseLong(scanner.nextLine());
@@ -407,7 +377,7 @@ public class BookView {
             do {
                 System.out.println("--Chọn chức năng--");
                 String choiceStr = inputLong();
-                if (choiceStr.equals("#")){
+                if (choiceStr.equals(".")){
                     break;
                 }
                 int choice = Integer.parseInt(choiceStr);
@@ -415,7 +385,7 @@ public class BookView {
                     case 1:
                         System.out.println("--Nhập Name mới cho sách--");
                         String newNameBook = scanner.nextLine();
-                        if (newNameBook.equals("#")){
+                        if (newNameBook.equals(".")){
                             break;
                         }
                         book.setName(newNameBook);
@@ -431,7 +401,7 @@ public class BookView {
                     case 3:
                         System.out.println("--Nhập Price mới cho sách--");
                         String newPriceBookStr = inputLong();
-                        if (newPriceBookStr.equals("#")){
+                        if (newPriceBookStr.equals(".")){
                             break;
                         }
                         long newPriceBook = Long.parseLong(newPriceBookStr);
@@ -440,7 +410,7 @@ public class BookView {
                     case 4:
                         System.out.println("--Nhập Avaiable mới cho sách--");
                         String newAvaiableBookStr = inputLong();
-                        if (newAvaiableBookStr.equals("#")){
+                        if (newAvaiableBookStr.equals(".")){
                             break;
                         }
                         long newAvaiableBook = Long.parseLong(newAvaiableBookStr);
@@ -453,7 +423,7 @@ public class BookView {
                         System.out.println("--Nhập DateAdd mới cho sách--");
                         System.out.println("--(ngày-tháng-năm)--");
                         String newDateAddBookStr = inputDate();
-                        if (newDateAddBookStr.equals("#")){
+                        if (newDateAddBookStr.equals(".")){
                             break;
                         }
                         Date newDateAddBook = DateUtils.parseDate(newDateAddBookStr);
@@ -501,7 +471,7 @@ public class BookView {
     private void editAmountBookViewById(Book book) {
             System.out.println("--Nhập Amount mới cho sách--");
             String newAmountBookStr = inputLong();
-            if (newAmountBookStr.equals("#")){
+            if (newAmountBookStr.equals(".")){
                 return;
             }
             long newAmountBook = Long.parseLong(newAmountBookStr);
@@ -525,7 +495,7 @@ public class BookView {
         showBookList();
         System.out.println("Nhập ID bạn muốn xoá");
         String str = inputLong();
-        if (str.equals("#")){
+        if (str.equals(".")){
             return;
         }
         long idBook = Long.parseLong(str);
@@ -543,7 +513,7 @@ public class BookView {
             System.out.println("-----------------------------");
             System.out.println("Nhập tên:                   |");
             String nameBookadd = scanner.nextLine();
-            if (nameBookadd.equals("#")){
+            if (nameBookadd.equals(".")){
                 break;
             }
             boolean checkIfCanFindBookByName = searchBookViewByName(nameBookadd);
@@ -552,7 +522,7 @@ public class BookView {
                 System.out.println("--Chuyển đến edit amount book--");
                 System.out.println("--Vui lòng nhập Id--");
                 String idBookAddStr = inputLong();
-                if (idBookAddStr.equals("#")){
+                if (idBookAddStr.equals(".")){
                     break;
                 }
                 long idBook = Long.parseLong(idBookAddStr);
@@ -565,18 +535,18 @@ public class BookView {
             } else {
                 System.out.println("Nhập tác giả:               |");
                 String authorBookadd = scanner.nextLine();
-                if (authorBookadd.equals("#")){
+                if (authorBookadd.equals(".")){
                     break;
                 }
                 System.out.println("Nhập giá:                   |");
                 String priceBookaddStr = inputLong();
-                if (priceBookaddStr.equals("#")){
+                if (priceBookaddStr.equals(".")){
                     break;
                 }
                 long priceBookadd = Long.parseLong(priceBookaddStr);
                 System.out.println("Nhập số lượng:              |");
                 String amountBookAddStr = inputLong();
-                if (amountBookAddStr.equals("#")){
+                if (amountBookAddStr.equals(".")){
                     break;
                 }
                 long amountBookadd = Long.parseLong(amountBookAddStr);
@@ -614,80 +584,6 @@ public class BookView {
         } while(checkActionContinueAddBook == true);
     }
 
-//    public void addBookView(){
-//        //kiểm tra trùng(tên, tác giả): ++số lượng, ++ avaiable.
-//        boolean checkActionContinueAddBook = false;
-//        do {
-//            long id = getMaxId() + 1;
-//            System.out.println("-----------------------------");
-//            System.out.println("Menu Thêm sách              |");
-//            System.out.println("-----------------------------");
-//            System.out.println("Nhập tên:                   |");
-//            String nameBookadd = scanner.nextLine();
-//            boolean checkIfCanFindBookByName = searchBookViewByName(nameBookadd);
-//            if (checkIfCanFindBookByName == true){
-//                System.out.println("--Sách bạn thêm đã tồn tại--");
-//                System.out.println("--Chuyển đến edit amount book--");
-//                System.out.println("--Vui lòng nhập Id");
-//                long idBook = Long.parseLong(scanner.nextLine());
-//                Book book = bookService.findBookById(idBook);
-//                editAmountBookViewById(book);
-//                showBookList(bookService.getAllBooks());
-//                System.out.println("---------Done---------");
-//                System.out.println("[1]Quay lại Menu thêm sách");
-//                System.out.println("[2]Về Menu quản lý sách");
-//                System.out.println("--Chọn chức năng--");
-//                int choiceEdit = Integer.parseInt(scanner.nextLine());
-//                if (choiceEdit == 1) {
-//                    checkActionContinueAddBook = true;
-//                } else if (choiceEdit == 2) {
-//                    checkActionContinueAddBook = false;
-//                } else {
-//                    checkActionContinueAddBook = true;
-//                }
-//            } else {
-//                System.out.println("Nhập tác giả:               |");
-//                String authorBookadd = scanner.nextLine();
-//                System.out.println("Nhập giá:                   |");
-//                long priceBookadd = Long.parseLong(scanner.nextLine());
-//                System.out.println("Nhập số lượng:              |");
-//                long amountBookadd = Long.parseLong(scanner.nextLine());
-//                long checkAmountStorage = keepAmountEditNotOverStorage(amountBookadd);
-//                System.out.println("-----------------------------");
-//                long avaiableBookadd = checkAmountStorage;
-//                Date dateBookAdd = new Date();
-//
-//                Book book = new Book(id, nameBookadd, authorBookadd, priceBookadd, avaiableBookadd, checkAmountStorage, dateBookAdd);
-//
-//                System.out.println("Kiểm tra lại thông tin sách vừa nhập");
-//                showBookListHeader(book);
-//                System.out.println("Bạn có chắc là muốn lưu? y/n");
-//                String choiceSaveAddBookInfomation = scanner.nextLine().trim().toLowerCase();
-//                switch (choiceSaveAddBookInfomation) {
-//                    case "y":
-//                        bookService.addBook(book);
-//                        System.out.println("---------Done---------");
-//                        checkActionContinueAddBook = false;
-//                        showBookList(bookService.getAllBooks());
-//                        break;
-//                    case "n":
-//                        System.out.println("[1]Quay lại Menu thêm sách");
-//                        System.out.println("[2]Về Menu quản lý sách");
-//                        int choiceEdit = Integer.parseInt(scanner.nextLine());
-//                        if (choiceEdit == 1) {
-//                            checkActionContinueAddBook = true;
-//                        } else if (choiceEdit == 2) {
-//                            checkActionContinueAddBook = false;
-//                        } else {
-//                            checkActionContinueAddBook = true;
-//                        }
-//                    default:
-//                        break;
-//                }
-//            }
-//        } while(checkActionContinueAddBook == true);
-//    }
-
     public long getMaxId(){
         long maxId = 0;
         for(int i = 0; i < bookService.getAllBooks().size(); i++){
@@ -702,7 +598,7 @@ public class BookView {
         System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
         System.out.printf(
                 "%-5s|%-50s|%-20s|%-12s|%-10s|%-10s|%-16s|\n",
-                centerString(5, "#"),
+                centerString(5, "."),
                 centerString(51, "Name"),
                 centerString(21, "Author"),
                 centerString(12, " Price") ,
@@ -751,5 +647,6 @@ public class BookView {
         }
         System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
     }
+
 
 }
