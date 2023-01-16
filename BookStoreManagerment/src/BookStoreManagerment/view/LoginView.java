@@ -18,22 +18,28 @@ public class LoginView extends GenericView {
 
     @Override
     public void launcher() {
-
-
         boolean isContinue = true;
         do {
-            System.out.println("-----------------");
-            System.out.println("Menu Đăng nhập  |");
-            System.out.println("-----------------");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("◤━━━━━━━━━━━━━━━━━━━━━━◥");
+            System.out.println("┃       Menu Login      ┃");
+            System.out.println("◣━━━━━━━━━━━━━━━━━━━━━━◢");
             String accountIn = checkAccount();
+            if(accountIn.equals(".")){
+                break;
+            }
             String passwordIn = checkPassword();
+            if(passwordIn.equals(".")){
+                break;
+            }
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
             Account account = accountService.checkAccountPassword(accountIn, passwordIn);
             if(account.getErole() == ERole.ADMIN) {
                 menuAdminView(account);
             } else {
                 menuUserView(account);
             }
-            isContinue = isContinue("Đăng nhập", "Hoàn toàn ");
+            isContinue = isContinue("Đăng nhập", "(Thoát hoàn toàn)");
         } while (isContinue);
     }
 
@@ -41,13 +47,16 @@ public class LoginView extends GenericView {
         GenericView view;
         boolean isContinue = true;
         do {
-            System.out.println("-------------------------");
-            System.out.println("Menu Admin");
-            System.out.println("-------------------------");
-            System.out.println("[1] Quản lý sách        |");
-            System.out.println("[2] Quản lý hoá đơn     |");
-            System.out.println("[3] Quản lý account     |");
-            System.out.println("-------------------------");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("                                                                    ◤━━━━━━━━━━━━━━━━━━━━━━◥");
+            System.out.println("                                                                    ┃       Menu Admin      ┃");
+            System.out.println("                                                                    ◣━━━━━━━━━━━━━━━━━━━━━━◢");
+            System.out.println("                                                                    ┃[1] Quản lý hoá đơn    ┃");
+            System.out.println("                                                                    ┃[2] Quản lý sách       ┃");
+            System.out.println("                                                                    ┃[3] Quản lý account    ┃");
+            System.out.println("                                                                    ◣━━━━━━━━━━━━━━━━━━━━━━◢");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("--Chọn chức năng--");
             String choiceStr = inputLong();
             if( choiceStr.equals(".")){
                 break;
@@ -55,12 +64,12 @@ public class LoginView extends GenericView {
             int choice = Integer.parseInt(choiceStr);
             switch (choice){
                 case 1:
-                    view = new BookView();
+                    view = new OrderView();
                     view.setAccount(account);
                     view.launcher();
                     break;
                 case 2:
-                    view = new OrderView();
+                    view = new BookView();
                     view.setAccount(account);
                     view.launcher();
                     break;
@@ -70,7 +79,7 @@ public class LoginView extends GenericView {
                     view.launcher();
                     break;
                 default:
-                    isContinue = isContinue("Menu Admin", "Quay lại đăng nhập");
+                    isContinue = isContinue("tiếp tụ Menu Admin", "(quay lại Menu Login)");
             }
         } while(isContinue);
     }
@@ -79,9 +88,15 @@ public class LoginView extends GenericView {
         GenericView view;
         boolean isContinue = true;
         do {
-            System.out.println("--Menu User--");
-            System.out.println("[1] Quản lý sách");
-            System.out.println("[2] Quản lý hoá đơn");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("                                                                    ◤━━━━━━━━━━━━━━━━━━━━━━◥");
+            System.out.println("                                                                    ┃       Menu User       ┃");
+            System.out.println("                                                                    ◣━━━━━━━━━━━━━━━━━━━━━━◢");
+            System.out.println("                                                                    ┃[1] Quản lý hoá đơn    ┃");
+            System.out.println("                                                                    ┃[2] Quản lý sách       ┃");
+            System.out.println("                                                                    ◣━━━━━━━━━━━━━━━━━━━━━━◢");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("--Chọn chức năng--");
             String choiceStr = inputLong();
             if( choiceStr.equals(".")){
                 break;
@@ -89,17 +104,17 @@ public class LoginView extends GenericView {
             int choice = Integer.parseInt(choiceStr);
             switch (choice){
                 case 1:
-                    view = new BookView();
-                    view.setAccount(account);
-                    view.launcher();
-                    break;
-                case 2:
                     view = new OrderView();
                     view.setAccount(account);
                     view.launcher();
                     break;
+                case 2:
+                    view = new BookView();
+                    view.setAccount(account);
+                    view.launcher();
+                    break;
                 default:
-                    isContinue = isContinue("Menu account", "Quay lại đăng nhập");
+                    isContinue = isContinue("tiếp tục Menu User", "(quay lại Menu Login)");
             }
         } while (isContinue);
     }
@@ -135,7 +150,7 @@ public class LoginView extends GenericView {
             if(passwordIn.equals(".")){
                 break;
             }
-            password = accountService.checktPassword(passwordIn);
+            password = accountService.checkPassword(passwordIn);
             if(password == null){
                 checkPassword = false;
                 System.out.println("--Mật khẩu sai, vui lòng nhập lại--");

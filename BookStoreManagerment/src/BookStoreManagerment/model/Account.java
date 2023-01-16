@@ -106,7 +106,8 @@ public class Account implements IModel<Account> {
         String name = items[3];
         String email = items[4];
         String address = items[5];
-        ERole eRole = ERole.toERole(Integer.parseInt(items[6]));
+        ERole eRole = ERole.getERoleByName(items[6]);
+//        ERole eRole = ERole.toERole(Integer.parseInt(items[6]));
         Account newAccount = new Account(id, account, password, name, email, address, eRole);
         return newAccount;
     }

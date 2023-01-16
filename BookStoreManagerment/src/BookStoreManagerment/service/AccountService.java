@@ -34,7 +34,7 @@ public class AccountService {
         return null;
     }
 
-    public Account checktPassword(String password) {
+    public Account checkPassword(String password) {
         List<Account> list = accountRepository.getAll();
         for (int i = 0; i < list.size(); i++){
             boolean check = list.get(i).getPassword().equals(password);

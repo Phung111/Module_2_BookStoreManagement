@@ -1,20 +1,23 @@
 package BookStoreManagerment.service;
 
+import BookStoreManagerment.comparator.ComparatorByAmount;
+import BookStoreManagerment.comparator.ComparatorById;
+import BookStoreManagerment.comparator.ComparatorByName;
+import BookStoreManagerment.comparator.ComparatorByPrice;
 import BookStoreManagerment.model.Book;
 import BookStoreManagerment.repository.file.BookRepository;
 //import BookStoreManagerment.repository.inmemory.BookRepository;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class BookService {
-    private List<Book> books;
     private BookRepository bookRepository;
     public BookService() {
         bookRepository = new BookRepository();
     }
 
     public List<Book> getAllBooks() {
-
         return bookRepository.getAll();
     }
 
@@ -36,7 +39,6 @@ public class BookService {
     }
 
     public Book findBookById(long idBook){
-
         return bookRepository.findById(idBook);
     }
 
@@ -49,4 +51,31 @@ public class BookService {
         bookRepository.add(book);
     }
 
+    public List<Book> sortBookById() {
+        List<Book> books = getAllBooks();
+        Comparator<Book> comparator = new ComparatorById();
+        books.sort(comparator);
+        return books;
+    }
+
+    public List<Book> sortBookByName() {
+        List<Book> books = getAllBooks();
+        Comparator<Book> comparator = new ComparatorByName();
+        books.sort(comparator);
+        return books;
+    }
+
+    public List<Book> sortBookByAmount() {
+        List<Book> books = getAllBooks();
+        Comparator<Book> comparator = new ComparatorByAmount();
+        books.sort(comparator);
+        return books;
+    }
+
+    public List<Book> sortBookByPrice() {
+        List<Book> books = getAllBooks();
+        Comparator<Book> comparator = new ComparatorByPrice();
+        books.sort(comparator);
+        return books;
+    }
 }

@@ -131,7 +131,7 @@ public class Book implements IModel<Book>, ISearch<Book> {
 
     public String toViewer(){
         return String.format(
-                "%5s| %-50s| %-20s|%,10d đ|%10s|%10s|%16s|\n",
+                "┃%-5s┃%-50s┃%-21s┃%,10d đ┃%10s┃%10s┃%-16s┃",
                 centerString(5, String.valueOf(this.getId())),
                 this.getName(),
                 this.getAuthor(),

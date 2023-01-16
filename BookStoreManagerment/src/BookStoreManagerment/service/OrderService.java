@@ -21,12 +21,8 @@ import static zStringFormat.dateToLocalDate.datetoLocalDate;
 
 public class OrderService {
     private OrderRepository orderRepository;
-    private OrderItemRepository orderItemRepository;
-    private OrderItemService orderItemService;
     public OrderService() {
         orderRepository = new OrderRepository();
-        orderItemRepository = new OrderItemRepository();
-        orderItemService = new OrderItemService();
     }
 
     public List<Order> getAllOrders(){
@@ -39,15 +35,6 @@ public class OrderService {
     }
 
     public Order findOrderById(long idOrder){
-//        List<OrderItem> allOrderItems = orderItemRepository.getAll();
-//        List<OrderItem> orderItems = new ArrayList<>();
-//        for (int i = 0; i < allOrderItems.size(); i++) {
-//            if (allOrderItems.get(i).getIdOrder() == idOrder) {
-//                orderItems.add(allOrderItems.get(i));
-//            }
-//        }
-//        Order order = orderRepository.findById(idOrder);
-//        return order;
         List<Order> allOrder = orderRepository.getAll();
         List<Order> orders = new ArrayList<>();
         for (int i = 0; i < allOrder.size(); i++) {

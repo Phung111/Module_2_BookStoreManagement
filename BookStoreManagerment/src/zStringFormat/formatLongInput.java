@@ -18,7 +18,7 @@ public class formatLongInput {
             } else {
                 isLong = ValidateUtils.isLongNumber(String.valueOf(longNumber));
                 if (isLong == false){
-                    System.out.println("--Dữ liệu nhập không đúng--");
+                    System.out.println("--Dữ liệu nhập cần là 1 số, vd: 123456--");
                     System.out.println("--Nhập lại--");
                 }
             }

@@ -27,20 +27,6 @@ public class OrderItemService {
         List<OrderItem> allOrderItems = orderItemRepository.getAll();
         return allOrderItems;
     }
-    public OrderItem getOrderItemsByIdOrder(long idOrder){
-        return orderItemRepository.findById(idOrder);
-    }
-//    public List<OrderItem> getOrderItemsByIdOrder(long idOrder){
-//        List<OrderItem> allOrderItems = orderItemRepository.getAll();
-//        List<OrderItem> orderItems = new ArrayList<>();
-//        for (int i = 0; i < allOrderItems.size(); i++) {
-//            if (allOrderItems.get(i).getIdOrder() == idOrder) {
-//                orderItems.add(allOrderItems.get(i));
-//            }
-//        }
-//        return orderItems;
-//    }
-
     public void updateOrderItemById(long id, OrderItem orderItem){
         orderItemRepository.updateById(id, orderItem);
     }
@@ -53,13 +39,10 @@ public class OrderItemService {
             }
         }
         return result;
-//        return orderItemRepository.findListById(idOrder);
     }
 
     public List<OrderItem> searchOrderItemByKeyWord(String keyword) {
         ISearchByKeyWord<OrderItem> iSearchByKeyWord = new ISearchByKeyWord<OrderItem>(){
-
-
             @Override
             public boolean searchByKeyWord(String keyword, OrderItem obj) {
                 String strKeyword = keyword.toUpperCase();
@@ -84,5 +67,9 @@ public class OrderItemService {
             }
         };
         return orderItemRepository.searchByKeyWord(keyword, iSearchByKeyWord);
+    }
+
+    public void deleteOrderItemById(long idOrderItem){
+        orderItemRepository.deleteById(idOrderItem);
     }
 }

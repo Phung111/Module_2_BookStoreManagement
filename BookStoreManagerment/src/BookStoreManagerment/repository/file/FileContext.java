@@ -82,18 +82,7 @@ public abstract class FileContext<T> {
         }
         return null;
     }
-    public List<T> findListById(long id){
-        List<T> list = getAll();
-        List<T> resultList = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++){
-            IModel<T> iModel = (IModel<T>) list.get(i);
-            if(iModel.getId() == id){
-                resultList.add(list.get(i));
-            }
-        }
-        return resultList;
-    }
-    public  void deleteById(long id){
+    public void deleteById(long id){
         List<T> list = getAll();
         for (int i = 0; i < list.size(); i++) {
             IModel<T> iModel = (IModel<T>) list.get(i);

@@ -21,9 +21,10 @@ public enum ERole {
         return null;
     }
 
+
     public static ERole getERoleByName(String name) {
         for (ERole e : values()) {
-            if (e.toString().equals(name)) {
+            if (e.getValue().equals(name)) {
                 return e;
             }
         }

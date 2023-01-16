@@ -6,10 +6,14 @@ public class isContinue {
     static Scanner scanner = new Scanner(System.in);
     public static boolean isContinue(String string,String string2) {
         do {
-            System.out.println("--Bạn có muốn tiếp tục " + string + "?--");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+            System.out.println("--Bạn có muốn " + string + "?--");
             System.out.println("[1] Đồng ý");
-            System.out.println("[2] Thoát (" + string2 + ")");
+            System.out.println("[2] Huỷ " + string2);
             int choice = Integer.parseInt(scanner.nextLine());
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
             switch (choice) {
                 case 1:
                     return true;

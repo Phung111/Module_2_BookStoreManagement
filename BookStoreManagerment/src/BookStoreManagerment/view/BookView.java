@@ -1,10 +1,5 @@
 package BookStoreManagerment.view;
 
-
-import BookStoreManagerment.comparator.ComparatorByAmount;
-import BookStoreManagerment.comparator.ComparatorById;
-import BookStoreManagerment.comparator.ComparatorByName;
-import BookStoreManagerment.comparator.ComparatorByPrice;
 import BookStoreManagerment.model.Book;
 import BookStoreManagerment.model.ERole;
 import BookStoreManagerment.service.BookService;
@@ -27,17 +22,18 @@ public class BookView extends GenericView {
         if (account.getErole() == ERole.ADMIN){
             boolean isContinue = false;
             do {
-                System.out.println("-------------------------");
-                System.out.println("Menu Book       |");
-                System.out.println("-------------------------");
-                System.out.println("[1]Xem danh sách        |");
-                System.out.println("[2]Thêm sách            |");
-                System.out.println("[3]Sửa thông tin sách   |");
-                System.out.println("[4]Xoá sách             |");
-                System.out.println("[5]Sắp xếp sách         |");
-                System.out.println("[6]Tìm kiếm sách        |");
-                System.out.println("[7]Thuê sách            |");
-                System.out.println("-------------------------");
+                System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("                                                                ◤━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◥");
+                System.out.println("                                                                ┃      Menu Book For Admin      ┃");
+                System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+                System.out.println("                                                                ┃[1]Xem danh sách               ┃");
+                System.out.println("                                                                ┃[2]Thêm sách                   ┃");
+                System.out.println("                                                                ┃[3]Sửa thông tin sách          ┃");
+                System.out.println("                                                                ┃[4]Xoá sách                    ┃");
+                System.out.println("                                                                ┃[5]Sắp xếp sách                ┃");
+                System.out.println("                                                                ┃[6]Tìm kiếm sách               ┃");
+                System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+                System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
                 System.out.println("--Chọn chức năng--");
                 String choiceStr = inputLong();
                 if (choiceStr.equals(".")){
@@ -64,20 +60,20 @@ public class BookView extends GenericView {
                         searchBookView();
                         break;
                 }
-                isContinue = isContinue("Quản lý sách","Hoàn toàn");
+                isContinue = isContinue("tiếp tục Quản lý sách","(quay lại Menu Admin)");
             } while (isContinue);
         } else {
             boolean isContinue = false;
             do {
-                System.out.println("-------------------------");
-                System.out.println("Menu Book               |");
-                System.out.println("-------------------------");
-                System.out.println("[1]Xem danh sách        |");
-                System.out.println("[2]Sắp xếp sách         |");
-                System.out.println("[3]Tìm kiếm sách        |");
-                System.out.println("[4]Thuê sách            |");
-                System.out.println("[5]Book Coffee          |");
-                System.out.println("-------------------------");
+                System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("                                                                ◤━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◥");
+                System.out.println("                                                                ┃       Menu Book For User      ┃");
+                System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+                System.out.println("                                                                ┃[1]Xem danh sách               ┃");
+                System.out.println("                                                                ┃[2]Sắp xếp sách                ┃");
+                System.out.println("                                                                ┃[3]Tìm kiếm sách               ┃");
+                System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+                System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
                 System.out.println("--Chọn chức năng--");
                 String choiceStr = inputLong();
                 if (choiceStr.equals(".")){
@@ -94,14 +90,8 @@ public class BookView extends GenericView {
                     case 3:
                         searchBookView();
                         break;
-                    case 4:
-//                        hireBookView();
-                        break;
-                    case 5:
-//                        bookcoffee();
-                        break;
                 }
-                isContinue = isContinue("Quản lý sách","Hoàn toàn");
+                isContinue = isContinue("tiếp tục Quản lý sách","(quay lại Menu User)");
             } while (isContinue);
         }
     }
@@ -151,14 +141,16 @@ public class BookView extends GenericView {
     public void searchBookView() {
         boolean isContinue = false;
         do {
-            System.out.println("-----------------------------");
-            System.out.println("Menu tìm kiếm sách:         |");
-            System.out.println("-----------------------------");
-            System.out.println("[1]Tìm kiếm theo Id         |");
-            System.out.println("[2]Tìm kiếm theo Name       |");
-            System.out.println("[3]Tìm kiếm theo Author     |");
-            System.out.println("[4]Tìm kiếm theo Amount     |");
-            System.out.println("-----------------------------");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("                                                                ◤━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◥");
+            System.out.println("                                                                ┃      Menu Tìm kiếm sách       ┃");
+            System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+            System.out.println("                                                                ┃[1]Tìm kiếm theo Id            ┃");
+            System.out.println("                                                                ┃[2]Tìm kiếm theo Name          ┃");
+            System.out.println("                                                                ┃[3]Tìm kiếm theo Author        ┃");
+            System.out.println("                                                                ┃[4]Tìm kiếm theo Amount        ┃");
+            System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("--Chọn chức năng--");
             String choiceStr = inputLong();
             if (choiceStr.equals(".")){
@@ -178,9 +170,8 @@ public class BookView extends GenericView {
                 case 4:
                     searchBookViewByAmount();
                     break;
-
             }
-            isContinue = isContinue("Tìm kiếm sách", "Đến Menu quản lý sách");
+            isContinue = isContinue("tiếp tục Menu Tìm kiếm sách", "(quay lại Menu Book)");
         } while (isContinue);
     }
 
@@ -252,76 +243,60 @@ public class BookView extends GenericView {
     public void sortBookView() {
         boolean isContinue = false;
         do {
-            System.out.println("-----------------------------");
-            System.out.println("Menu sắp xếp sách:          |");
-            System.out.println("-----------------------------");
-            System.out.println("[1]Sắp xếp theo Id          |");
-            System.out.println("[2]Sắp xếp theo tên         |");
-            System.out.println("[3]Sắp xếp theo số lượng    |");
-            System.out.println("[4]Sắp xếp theo giá         |");
-            System.out.println("-----------------------------");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("                                                                ◤━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◥");
+            System.out.println("                                                                ┃       Menu sắp xếp sách       ┃");
+            System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+            System.out.println("                                                                ┃[1]Sắp xếp theo Id             ┃");
+            System.out.println("                                                                ┃[2]Sắp xếp theo tên            ┃");
+            System.out.println("                                                                ┃[3]Sắp xếp theo số lượng       ┃");
+            System.out.println("                                                                ┃[4]Sắp xếp theo giá            ┃");
+            System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("--Chọn chức năng--");
             String choiceStr = inputLong();
             if (choiceStr.equals(".")){
                 break;
             }
             int choice = Integer.parseInt(choiceStr);
+            List<Book> books = bookService.getAllBooks();
             switch (choice){
                 case 1:
-                    sortBookViewById();
+                    books = bookService.sortBookById();
                     break;
                 case 2:
-                    sortBookViewByName();
+                    books = bookService.sortBookByName();
                     break;
                 case 3:
-                    sortBookViewByAmount();
+                    books = bookService.sortBookByAmount();
                     break;
                 case 4:
-                    sortBookViewByPrice();
+                    books = bookService.sortBookByPrice();
+                    break;
+                default:
+                    System.out.println("--Chọn sai chức năng, nhập lại--");
+                    isContinue = true;
                     break;
             }
-            isContinue = isContinue("Sắp xếp sách", "Đến Menu quản lý sách");
+            if(isContinue == false){
+                showBookList(books);
+            }
+            isContinue = isContinue("tiếp tục Menu Sắp xếp sách", "(quay lại Menu quản lý sách)");
         } while (isContinue);
-    }
-
-    private void sortBookViewByAmount() {
-        List<Book> books = bookService.getAllBooks();
-        Comparator<Book> comparator = new ComparatorByAmount();
-        books.sort(comparator);
-        showBookList(books);
-    }
-
-    private void sortBookViewByPrice() {
-        List<Book> books = bookService.getAllBooks();
-        Comparator<Book> comparator = new ComparatorByPrice();
-        books.sort(comparator);
-        showBookList(books);
-    }
-
-    private void sortBookViewById() {
-        List<Book> books = bookService.getAllBooks();
-        Comparator<Book> comparator = new ComparatorById();
-        books.sort(comparator);
-        showBookList(books);
-    }
-
-    private void sortBookViewByName() {
-        List<Book> books = bookService.getAllBooks();
-        Comparator<Book> comparator = new ComparatorByName();
-        books.sort(comparator);
-        showBookList(books);
     }
 
     public void editBookView(){
         boolean isContinue = false;
         do {
-            System.out.println("-----------------------------");
-            System.out.println("Menu sửa thông tin sách:    |");
-            System.out.println("-----------------------------");
-            System.out.println("[1]Sửa theo Id              |");
-            System.out.println("[2]Sửa theo tên             |");
-            System.out.println("[3]Sửa theo số lượng        |");
-            System.out.println("-----------------------------");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("                                                                ◤━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◥");
+            System.out.println("                                                                ┃    Menu sửa thông tin sách    ┃");
+            System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+            System.out.println("                                                                ┃[1]Sửa theo Id                 ┃");
+            System.out.println("                                                                ┃[2]Sửa theo tên                ┃");
+            System.out.println("                                                                ┃[3]Sửa theo số lượng           ┃");
+            System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("--Chọn chức năng--");
             String choiceStr = inputLong();
             if (choiceStr.equals(".")){
@@ -339,7 +314,7 @@ public class BookView extends GenericView {
                     editBookViewByAmount();
                     break;
             }
-            isContinue = isContinue("Sửa thông tin sách", "Đến Menu quản lý sách");
+            isContinue = isContinue("tiếp tục Menu Sửa thông tin sách", "(quay lại Menu Book)");
         } while (isContinue);
     }
 
@@ -361,18 +336,20 @@ public class BookView extends GenericView {
         Book book = bookService.findBookById(idBook);
         if (book != null) {
             System.out.println("Book tìm được theo Id bạn vừa nhập");
-            showBookListHeader(book);
-            System.out.println("-----------------------------");
-            System.out.println("Menu thông tin bạn muốn sửa |");
-            System.out.println("-----------------------------");
-            System.out.println("[1]Name                     |");
-            System.out.println("[2]Author                   |");
-            System.out.println("[3]Price                    |");
-            System.out.println("[4]Avaible                  |");
-            System.out.println("[5]Amount                   |");
-            System.out.println("[6]DateAdd                  |");
-            System.out.println("[7]Sửa tất cả thông tin     |");
-            System.out.println("-----------------------------");
+            showBook(book);
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("                                                                ◤━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◥");
+            System.out.println("                                                                ┃  Menu thông tin bạn muốn sửa  ┃");
+            System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+            System.out.println("                                                                ┃[1]Name                        ┃");
+            System.out.println("                                                                ┃[2]Author                      ┃");
+            System.out.println("                                                                ┃[3]Price                       ┃");
+            System.out.println("                                                                ┃[4]Avaible                     ┃");
+            System.out.println("                                                                ┃[5]Amount                      ┃");
+            System.out.println("                                                                ┃[6]DateAdd                     ┃");
+            System.out.println("                                                                ┃[7]Sửa tất cả thông tin        ┃");
+            System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
             boolean isContinue = true;
             do {
                 System.out.println("--Chọn chức năng--");
@@ -461,8 +438,19 @@ public class BookView extends GenericView {
                         break;
                 }
             } while (isContinue == false);
-            bookService.updateBooktById(idBook, book);
-            showBookList(bookService.getAllBooks());
+            System.out.println("--Kiểm tra lại thông tin muốn thêm--");
+            showBook(book);
+            System.out.println("--Bạn có chắc muốn cập nhật? [1]Có/[2]Không");
+            String str = inputLong();
+            if(str.equals(".")){
+                return;
+            }
+            long answer = Long.parseLong(str);
+            if(answer == 1){
+                bookService.updateBooktById(idBook, book);
+                showBookList(bookService.getAllBooks());
+                System.out.println("--Done--");
+            }
         }else{
             System.out.println("--ID không tồn tại--");
         }
@@ -499,8 +487,18 @@ public class BookView extends GenericView {
             return;
         }
         long idBook = Long.parseLong(str);
-        bookService.deleteBookById(idBook);
-        showBookList(bookService.getAllBooks());
+        System.out.println("--Kiểm tra lại book bạn muốn xoá--");
+        showBook(bookService.findBookById(idBook));
+        System.out.println("--Bạn có chắc muốn xoá? [1]Có/[2]Không");
+        String str2 = inputLong();
+        if(str2.equals(".")){
+            return;
+        }
+        long answer = Long.parseLong(str2);
+        if(answer == 1){
+            bookService.deleteBookById(idBook);
+            showBookList(bookService.getAllBooks());
+        }
     }
 
     public void addBookView(){
@@ -508,10 +506,11 @@ public class BookView extends GenericView {
         boolean checkActionContinueAddBook = false;
         do {
             long id = getMaxId() + 1;
-            System.out.println("-----------------------------");
-            System.out.println("Menu Thêm sách              |");
-            System.out.println("-----------------------------");
-            System.out.println("Nhập tên:                   |");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("◤━━━━━━━━━━━━━━━━━━━━━━━━━━◥");
+            System.out.println("┃      Menu Thêm Sách       ┃");
+            System.out.println("◣━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+            System.out.println("┃Nhập tên:                  ┃");
             String nameBookadd = scanner.nextLine();
             if (nameBookadd.equals(".")){
                 break;
@@ -533,54 +532,45 @@ public class BookView extends GenericView {
                     System.out.println("--ID không tồn tại--");
                 }
             } else {
-                System.out.println("Nhập tác giả:               |");
+                System.out.println("┃Nhập tác giả:              ┃");
                 String authorBookadd = scanner.nextLine();
                 if (authorBookadd.equals(".")){
                     break;
                 }
-                System.out.println("Nhập giá:                   |");
+                System.out.println("┃Nhập giá:                  ┃");
                 String priceBookaddStr = inputLong();
                 if (priceBookaddStr.equals(".")){
                     break;
                 }
                 long priceBookadd = Long.parseLong(priceBookaddStr);
-                System.out.println("Nhập số lượng:              |");
+                System.out.println("┃Nhập số lượng:             ┃");
                 String amountBookAddStr = inputLong();
                 if (amountBookAddStr.equals(".")){
                     break;
                 }
                 long amountBookadd = Long.parseLong(amountBookAddStr);
-                System.out.println("-----------------------------");
+                System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
                 long checkAmountStorage = keepAmountEditNotOverStorage(amountBookadd);
                 long avaiableBookadd = checkAmountStorage;
                 Date dateBookAdd = new Date();
 
                 Book book = new Book(id, nameBookadd, authorBookadd, priceBookadd, avaiableBookadd, checkAmountStorage, dateBookAdd);
-
                 System.out.println("Kiểm tra lại thông tin sách vừa nhập");
-                showBookListHeader(book);
-                System.out.println("Bạn có chắc là muốn lưu? y/n");
-                String choice = scanner.nextLine().trim().toLowerCase();
-                switch (choice) {
-                    case "y":
-                        bookService.addBook(book);
-                        break;
-                    default:
-                        break;
+                showBook(book);
+                System.out.println("Bạn có chắc là muốn thêm? [1]Có/[2]Không");
+                String str2 = inputLong();
+                if(str2.equals(".")){
+                    return;
+                }
+                long answer = Long.parseLong(str2);
+                if(answer == 1){
+                    bookService.addBook(book);
                 }
             }
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
             showBookList(bookService.getAllBooks());
             System.out.println("---------Done---------");
-            System.out.println("[1]Quay lại Menu thêm sách");
-            System.out.println("[2]Về Menu quản lý sách");
-            int choiceEdit = Integer.parseInt(scanner.nextLine());
-            if (choiceEdit == 1) {
-                checkActionContinueAddBook = true;
-            } else if (choiceEdit == 2) {
-                checkActionContinueAddBook = false;
-            } else {
-                checkActionContinueAddBook = true;
-            }
+            checkActionContinueAddBook = isContinue("tiếp tục Menu Thêm Sách","(quay lại Menu Book");
         } while(checkActionContinueAddBook == true);
     }
 
@@ -593,60 +583,44 @@ public class BookView extends GenericView {
         }
         return maxId;
     }
-
-    public void showBookListHeader(Book book){
-        System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+    public void showBookListHeader(){
+        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("◤━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◥");
         System.out.printf(
-                "%-5s|%-50s|%-20s|%-12s|%-10s|%-10s|%-16s|\n",
+                "┃%-5s┃%-50s┃%-20s┃%12s┃%10s┃%10s┃%-16s┃\n",
                 centerString(5, "."),
-                centerString(51, "Name"),
+                centerString(50, "Name"),
                 centerString(21, "Author"),
                 centerString(12, " Price") ,
                 centerString(10, "Avaiable"),
                 centerString(10, "Amount"),
                 centerString(16, " Date Add"));
-        System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+    }
+
+    public void showBook(Book book){
+        showBookListHeader();
         System.out.println(book.toViewer());
-        System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
     }
 
     public void showBookList(){
-        System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
-        System.out.printf(
-                "%-5s|%-50s|%-20s|%-12s|%-10s|%-10s|%-16s|\n",
-                centerString(5, "#"),
-                centerString(51, "Name"),
-                centerString(21, "Author"),
-                centerString(12, " Price") ,
-                centerString(10, "Avaiable"),
-                centerString(10, "Amount" + ""),
-                centerString(16, " Date Add")
-        );
-        System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+        showBookListHeader();
         for (Book book : bookService.getAllBooks()){
             System.out.println(book.toViewer());
         }
-        System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
     }
 
     private void showBookList(List<Book> books){
-        System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
-        System.out.printf(
-                "%-5s|%-50s|%-20s|%-12s|%-10s|%-10s|%-16s|\n",
-                centerString(5, "#"),
-                centerString(51, "Name"),
-                centerString(21, "Author"),
-                centerString(12, " Price") ,
-                centerString(10, "Avaiable"),
-                centerString(10, "Amount"),
-                centerString(16, " Date Add")
-        );
-        System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+        showBookListHeader();
         for (Book book : books){
             System.out.println(book.toViewer());
         }
-        System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
     }
-
-
 }

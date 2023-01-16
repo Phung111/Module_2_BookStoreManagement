@@ -6,6 +6,7 @@ import BookStoreManagerment.service.OrderItemService;
 import BookStoreManagerment.service.OrderService;
 import BookStoreManagerment.utils.DateUtils;
 
+import java.sql.SQLOutput;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -39,20 +40,24 @@ public class OrderView extends GenericView{
         if(account.getErole() == ERole.ADMIN) {
             boolean isContinue = false;
             do {
-                System.out.println("---------------------------------");
-                System.out.println("Menu Order By Admin             |");
-                System.out.println("---------------------------------");
-                System.out.println("[1]Thêm order                   |");
-                System.out.println("[2]Xem danh sách order          |");
-                System.out.println("[3]Xem chi tiết order           |");
-                System.out.println("[4]Cập nhật trạng thái order    |");
-                System.out.println("[5]Sửa order                    |");
-                System.out.println("[6]Tìm kiếm order               |");
-                System.out.println("[7]Sắp xếp order                |");
-                System.out.println("[8]In hoá đơn                   |");
-                System.out.println("[9]Thống kê hoá đơn             |");
-                System.out.println("[10]Trả sách đã thuê            |");
-                System.out.println("---------------------------------");
+                System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("                                                                ◤━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◥");
+                System.out.println("                                                                ┃      Menu Order For Admin     ┃");
+                System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+                System.out.println("                                                                ┃[1]Thêm order                  ┃");
+                System.out.println("                                                                ┃[2]Xem danh sách order         ┃");
+                System.out.println("                                                                ┃[3]Xem chi tiết order          ┃");
+                System.out.println("                                                                ┃[4]Cập nhật trạng thái order   ┃");
+                System.out.println("                                                                ┃[5]Sửa order                   ┃");
+                System.out.println("                                                                ┃[6]Tìm kiếm order              ┃");
+                System.out.println("                                                                ┃[7]Sắp xếp order               ┃");
+                System.out.println("                                                                ┃[8]In hoá đơn                  ┃");
+                System.out.println("                                                                ┃[9]Thống kê hoá đơn            ┃");
+                System.out.println("                                                                ┃[10]Trả sách đã thuê           ┃");
+                System.out.println("                                                                ┃[11]Book Coffee                ┃");
+                System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+                System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("--Chọn chức năng--");
                 String choiceStr = inputLong();
                 if (choiceStr.equals(".")) {
                     break;
@@ -89,21 +94,28 @@ public class OrderView extends GenericView{
                     case 10:
                         returnBook();
                         break;
+                    case 11:
+                        bookCoffe();
+                        break;
                 }
-                isContinue = isContinue("Quản lý order", "Hoàn toàn");
+                isContinue = isContinue("Quản lý order", "Đến Menu Admin");
             } while (isContinue);
         } else {
             boolean isContinue = false;
             do {
-                System.out.println("---------------------------------");
-                System.out.println("Menu Order By User              |");
-                System.out.println("---------------------------------");
-                System.out.println("[1]Thêm order                   |");
-                System.out.println("[2]Xem chi tiết order           |");
-                System.out.println("[3]Tìm kiếm order               |");
-                System.out.println("[4]Sắp xếp order                |");
-                System.out.println("[5]In hoá đơn                   |");
-                System.out.println("---------------------------------");
+                System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("                                                                ◤━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◥");
+                System.out.println("                                                                ┃      Menu Order For User      ┃");
+                System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+                System.out.println("                                                                ┃[1]Thêm order                  ┃");
+                System.out.println("                                                                ┃[2]Xem chi tiết order          ┃");
+                System.out.println("                                                                ┃[3]Tìm kiếm order              ┃");
+                System.out.println("                                                                ┃[4]Sắp xếp order               ┃");
+                System.out.println("                                                                ┃[5]In hoá đơn                  ┃");
+                System.out.println("                                                                ┃[6]Trả sách đã thuê            ┃");
+                System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+                System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("--Chọn chức năng--");
                 String choiceStr = inputLong();
                 if (choiceStr.equals(".")) {
                     break;
@@ -125,62 +137,79 @@ public class OrderView extends GenericView{
                     case 5:
                         printBill();
                         break;
+                    case 6:
+                        returnBook();
+                        break;
                 }
-                isContinue = isContinue("Quản lý order", "Hoàn toàn");
+                isContinue = isContinue("Quản lý order", "Đến Menu User");
             } while (isContinue);
         }
     }
-
     private void returnBook() {
-        System.out.println("--Nhập idOrder--");
-        String idOrderStr = inputLong();
-        if(idOrderStr.equals(".")){
-            return;
-        }
-        Long idOrder = Long.parseLong(idOrderStr);
-        Order order = orderService.findOrderById(idOrder);
-//        List<OrderItem> orderItems = orderItemService.findOrderItemListByIdOrder(idOrder);
-        Date dayOrder = order.getCreateAt();
-        LocalDate LdayOrder = datetoLocalDate(dayOrder);
+        boolean isContinue = true;
+        do {
+            System.out.println("--Nhập idOrder--");
+            String idOrderStr = inputLong();
+            if(idOrderStr.equals(".")){
+                return;
+            }
+            Long idOrder = Long.parseLong(idOrderStr);
+            Order order = orderService.findOrderById(idOrder);
+            if (order.geteStatusOrder() == EStatusOrder.BORROWING){
+                Date dayOrder = order.getCreateAt();
+                LocalDate LdayOrder = datetoLocalDate(dayOrder);
+                LocalDate LdayTerm = LdayOrder.plusDays(30);
+                Date dayTerm = java.sql.Date.valueOf(LdayTerm);
+                Date dayReturn = new Date();
+                LocalDate LdayReturn = datetoLocalDate(dayReturn);
+                long days = DAYS.between(LdayTerm, LdayReturn);
 
-        LocalDate LdayTerm = LdayOrder.plusDays(30);
-        Date dayTerm = java.sql.Date.valueOf(LdayTerm);
+                long feeBorrowPerDay = 10000;
+                long feeDeposit = 500000;
+                long feeBorrow = 50000;
+                long feeTerm = 0;
+                if(days > 0) {
+                    feeTerm = days*feeBorrowPerDay;
+                } else {
+                    days = 0;
+                }
+                long totalBorrow = feeBorrow + feeTerm;
+                long totalReturn = feeDeposit - totalBorrow;
+                order.seteStatusOrder(EStatusOrder.BORROWPAID);
+                order.setTotal(totalBorrow);
+                orderService.updateOrderById(idOrder, order);
 
-        Date dayReturn = new Date();
-        LocalDate LdayReturn = datetoLocalDate(dayReturn);
+                List<OrderItem> orderItems = orderItemService.findOrderItemListByIdOrder(idOrder);
+                for(OrderItem orderItem : orderItems){
+                    Book book = bookService.findBookById(orderItem.getIdBook());
+                    book.setAvaiable(book.getAvaiable() + 1);
+                    bookService.updateBooktById(orderItem.getIdBook(), book);
+                }
 
-        long days = DAYS.between(LdayTerm, LdayReturn);
-
-        long feeBorrowPerDay = 10000;
-        long feeDeposit = 500000;
-        long feeBorrow = 50000;
-        long feeTerm = 0;
-        if(days > 0) {
-            feeTerm = days*feeBorrowPerDay;
-        } else {
-            days = 0;
-        }
-        long totalBorrow = feeBorrow + feeTerm;
-        long totalReturn = feeDeposit - totalBorrow;
-        order.seteStatusOrder(EStatusOrder.BORROWPAID);
-        order.setTotal(totalBorrow);
-        orderService.updateOrderById(idOrder, order);
-        showDetailOrderViewByIdWithBorrow(
-                idOrder,feeDeposit, feeBorrow, feeTerm, totalBorrow, totalReturn,feeBorrowPerDay,  dayOrder, dayTerm, dayReturn, days);
-        System.out.println("--Thượng đế đã trả sách và thanh toán phí--");
+                showDetailOrderViewByIdWithBorrow(
+                        idOrder,feeDeposit, feeBorrow, feeTerm, totalBorrow, totalReturn,feeBorrowPerDay,  dayOrder, dayTerm, dayReturn, days);
+                System.out.println("--Thượng đế đã trả sách và thanh toán phí--");
+                isContinue = true;
+            } else {
+                System.out.println("--idOrder không phải thuộc sách mượn, vui lòng chọn đúng idOrder--");
+                isContinue = false;
+            }
+        } while (isContinue);
     }
 
     private void menuStatistic() {
 
         boolean isContinue = true;
         do {
-            System.out.println("-----------------------------");
-            System.out.println("Menu Thống kê hoá đơn       |");
-            System.out.println("-----------------------------");
-            System.out.println("[1] Từ ngày đến ngày        |");
-            System.out.println("[2] Trong Tháng             |");
-            System.out.println("[3] Trong năm               |");
-            System.out.println("----------------------------");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("                                                                ◤━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◥");
+            System.out.println("                                                                ┃     Menu Thống kê hoá đơn     ┃");
+            System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+            System.out.println("                                                                ┃[1]Từ ngày đến ngày            ┃");
+            System.out.println("                                                                ┃[2]Trong Tháng                 ┃");
+            System.out.println("                                                                ┃[3]Trong năm                   ┃");
+            System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("--Chọn chức năng--");
             String choiceStr = inputLong();
             if(choiceStr.equals(".")){
@@ -321,7 +350,7 @@ public class OrderView extends GenericView{
             return;
         }
         Date date = DateUtils.parseDate(dateStr);
-        System.out.println("--Chọc status order mới--");
+        System.out.println("--Chọn status order mới--");
         EStatusOrder eStatusOrder = EStatusOrder.NEW;
         System.out.println("--[1]NEW | [2]PAID | [3]CANCELED--");
         boolean isContinueChoseStatusOrder = false;
@@ -359,55 +388,40 @@ public class OrderView extends GenericView{
     private void sortOrderView() {
         boolean isContinue = true;
         do {
-            System.out.println("-----------------------------");
-            System.out.println("Menu sắp xếp Order:         |");
-            System.out.println("-----------------------------");
-            System.out.println("[1]Sắp xếp theo Id          |");
-            System.out.println("[2]Sắp xếp theo tên         |");
-            System.out.println("[3]Sắp xếp theo doanh thu   |");
-            System.out.println("[4]Sắp xếp theo ngày        |");
-            System.out.println("-----------------------------");System.out.println("--Chọn chức năng--");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("                                                                ◤━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◥");
+            System.out.println("                                                                ┃     Menu Sắp xếp Order        ┃");
+            System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+            System.out.println("                                                                ┃[1]Sắp xếp theo Id             ┃");
+            System.out.println("                                                                ┃[2]Sắp xếp theo tên            ┃");
+            System.out.println("                                                                ┃[3]Sắp xếp theo doanh thu      ┃");
+            System.out.println("                                                                ┃[4]Sắp xếp theo ngày           ┃");
+            System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("--Chọn chức năng--");
             String choiceStr = inputLong();
             if (choiceStr.equals(".")){
                 break;
             }
             int choice = Integer.parseInt(choiceStr);
+            List<Order> orders = new ArrayList<>();
             switch (choice){
                 case 1:
-                    sortOrderViewById();
+                    orders = orderService.sortOrderById();
                     break;
                 case 2:
-                    sortOrderViewByName();
+                    orders = orderService.sortOrderByName();
                     break;
                 case 3:
-                    sortOrderByTotal();
+                    orders = orderService.sortOrderByTotal();
                     break;
                 case 4:
-                    sortOrderByDate();
+                    orders = orderService.sortOrderByDate();
                     break;
             }
+            showOrdersView(orders);
             isContinue = isContinue("Sắp xếp sách", "Đến Menu quản lý sách");
         } while (isContinue);
-    }
-
-    private void sortOrderByDate() {
-        List<Order> orders = orderService.sortOrderByDate();
-        showOrdersView(orders);
-    }
-
-    private void sortOrderByTotal() {
-        List<Order> orders = orderService.sortOrderByTotal();
-        showOrdersView(orders);
-    }
-
-    private void sortOrderViewByName() {
-        List<Order> orders = orderService.sortOrderByName();
-        showOrdersView(orders);
-    }
-
-    private void sortOrderViewById() {
-        List<Order> orders = orderService.sortOrderById();
-        showOrdersView(orders);
     }
 
     private void printBill(){
@@ -436,12 +450,14 @@ public class OrderView extends GenericView{
     private void menuSearchOrder() {
         boolean isContinue = true;
         do {
-            System.out.println("-------------------------");
-            System.out.println("Menu Search             |");
-            System.out.println("-------------------------");
-            System.out.println("[1] Search Order        |");
-            System.out.println("[2] Search OrderItem    |");
-            System.out.println("-------------------------");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("                                                                ◤━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◥");
+            System.out.println("                                                                ┃           Menu Search         ┃");
+            System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+            System.out.println("                                                                ┃[1]Search Order                ┃");
+            System.out.println("                                                                ┃[2]Search OrderItem            ┃");
+            System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("--Chọn chức năng--");
             String choiceStr = inputLong();
             if (choiceStr.equals(".")) {
@@ -528,8 +544,8 @@ public class OrderView extends GenericView{
         EStatusOrder eStatusOrder = confirmBuyOrBorrow(idOrder);
 
         //Hiện book list
-//        bookView.showBookListAndPage();
-        bookView.showBookListAndPage1();
+        bookView.showBookListAndPage();
+//        bookView.showBookListAndPage1();
 
         //Xử lý orderItems
         long idOrderItem = getMaxIdOrderItem() + 1;
@@ -561,6 +577,17 @@ public class OrderView extends GenericView{
                     break;
                 case 2:
                     eStatusOrder = EStatusOrder.BORROW;
+                    System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                    System.out.println("                                                                ◤━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◥");
+                    System.out.println("                                                                ┃       Bảng giá mượn sách      ┃");
+                    System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+                    System.out.println("                                                                ┃Chỉ được mượn 1 cuốn mỗi loại  ┃");
+                    System.out.println("                                                                ┃Tiền cọc:          500.000đ    ┃");
+                    System.out.println("                                                                ┃Phí thuê:           50.000đ    ┃");
+                    System.out.println("                                                                ┃Thời hạn:           30 ngày    ┃");
+                    System.out.println("                                                                ┃Phí trễ mỗi ngày:   10.000đ    ┃");
+                    System.out.println("                                                                ◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+                    System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
                     isContinue = false;
                     break;
                 default:
@@ -606,14 +633,17 @@ public class OrderView extends GenericView{
         }
         showDetailOrderViewById(idOrder);
         showReturnDay(order);
+        allowToRemoveSomeOrderItemsInCart(idOrder);
     }
     private void showReturnDay(Order order){
         if(order.geteStatusOrder() == EStatusOrder.BORROWING){
-            Date returnDay = new Date(order.getCreateAt().getTime() + (100*60*60*24*30));
-            String fmtOrderFooter = String.format("|%111s  %10s|", "Tiền cọc: 500.000 đ        Hạn trả:  ", ddMMMyyyy(returnDay));
+            Date dayOrder = order.getCreateAt();
+            LocalDate LdayOrder = datetoLocalDate(dayOrder);
+            LocalDate LdayTerm = LdayOrder.plusDays(30);
+            Date dayTerm = java.sql.Date.valueOf(LdayTerm);
+            String fmtOrderFooter = String.format("┃%113s  %10s┃", "Tiền cọc: 500.000 đ        Hạn trả:  ", ddMMMyyyy(dayTerm));
             System.out.println(fmtOrderFooter);
-            System.out.println("------------------------------------------------------------------------------------------------------------------------------");
-
+            System.out.println("◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
         }
     }
     private void fixAmountAndAvaiableAfterOrder(long idOrder, EStatusOrder eStatusOrder){
@@ -638,9 +668,11 @@ public class OrderView extends GenericView{
         Order order = orderService.findOrderById(idOrder);
         order.setTotal(getBigTotal(idOrder));
         orderService.updateOrderById(idOrder, order);
+        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("---------------Your bill---------------");
         showDetailOrderViewById(idOrder);
         showReturnDay(order);
+        allowToRemoveSomeOrderItemsInCart(idOrder);
     }
 
     private void createOrderItem(long idOrder, long idOrderItem, EStatusOrder eStatusOrder) {
@@ -682,10 +714,36 @@ public class OrderView extends GenericView{
                     orderItemService.add(newOrderItem);
                 }
             }
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("---------------Your order---------------");
             showOrderItemViewById(idOrder);
-            isContinueAddOrderItem = isContinue("Tiếp tục order", " đến In hoá đơn và thanh toán");
+            isContinueAddOrderItem = isContinue("Tiếp tục order", " (đến In hoá đơn và thanh toán)");
         } while (isContinueAddOrderItem);
+    }
+
+    private void allowToRemoveSomeOrderItemsInCart(long idOrder) {
+        boolean isContinue = true;
+        do {
+            isContinue = isContinue("Bỏ sản phẩm nào đó trong giỏ","");
+            if (isContinue){
+                showOrderItemViewById(idOrder);
+                System.out.println("--Nhập idOrderItem cần bỏ--");
+                String idStr = inputLong();
+                if(idStr.equals(".")){
+                    return;
+                }
+                long idOrderItem = Long.parseLong(idStr);
+                List<OrderItem> orderItems = orderItemService.findOrderItemListByIdOrder(idOrder);
+                for(OrderItem orderItem : orderItems){
+                    if(orderItem.getIdOrderItem() == idOrderItem){
+                        orderItemService.deleteOrderItemById(idOrderItem);
+                    }
+                }
+            }
+            System.out.println("--Your Bill--");
+            showDetailOrderViewById(idOrder
+            );
+        } while (isContinue);
     }
 
     private void createOrder(long idOrder) {
@@ -763,12 +821,13 @@ public class OrderView extends GenericView{
     private void showOrdersView(List<Order> orders ) {
         orderViewHeader();
         orderViewContentForLoop(orders);
+        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
     }
     private void showOrdersViewById(long idOrder) {
         orderViewHeader();
         Order order = orderService.findOrderById(idOrder);
         String fmtOrderDetailBody = String.format(
-                "|%-10s|%-20s|%-16s|%-10s|%,10d đ|",
+                "┃%-10s┃%-20s┃%-16s┃%-10s┃%,10d đ┃",
                 centerString(10, String.valueOf(order.getId())),
                 order.getNameCustomer(),
                 centerString(16, ddMMMyyyy(order.getCreateAt())),
@@ -779,25 +838,27 @@ public class OrderView extends GenericView{
     }
     private void orderViewHeader(){
         String fmtOrderHeader = String.format(
-                "|%-10s|%-20s|%-16s|%-10s|%-10s|",
+                "┃%-10s┃%-20s┃%-16s┃%-10s┃%-10s┃",
                 centerString(10, "IDORDER"),
                 centerString(20, "TEN KHACH HANG"),
                 centerString(16, "NGAYDAT"),
                 centerString(10, "STATUS"),
                 centerString(12, "TONG TIEN")
         );
-        System.out.println("--------------------------------------------------------------------------");
+        System.out.println("◤━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◥");
         System.out.println(fmtOrderHeader);
+        System.out.println("◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
     }
 
     private void orderViewContent(){
         List<Order> orders = orderService.getAllOrders();
         orderViewContentForLoop(orders);
+        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
     }
     private void orderViewContentForLoop(List<Order> orders){
         for (Order order : orders) {
             String fmtOrderContent = String.format(
-                    "|%-10s|%-20s|%-16s|%-10s|%,10d đ|",
+                    "┃%-10s┃%-20s┃%-16s┃%-10s┃%,10d đ┃",
                     centerString(10, String.valueOf(order.getId())),
                     order.getNameCustomer(),
                     centerString(16, ddMMMyyyy(order.getCreateAt())),
@@ -806,9 +867,8 @@ public class OrderView extends GenericView{
             );
             System.out.println(fmtOrderContent);
         }
-        System.out.println("--------------------------------------------------------------------------");
+        System.out.println("◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
     }
-
     private void showOrderItemsView(List<OrderItem> orderItems ) {
         orderItemHeader();
         orderItemContentForLoop(orderItems);
@@ -820,7 +880,7 @@ public class OrderView extends GenericView{
         for (OrderItem orderItem : orderItems) {
             Book book = bookService.findBookById(orderItem.getIdBook());
             String fmtOrderItem = String.format(
-                    "|%-15s|%-10s|%-10s|%-50s|%10s|%,10d đ|%,10d đ|",
+                    "┃%-15s┃%-10s┃%-10s┃%-50s┃%10s┃%,10d đ┃%,10d đ┃",
                     centerString(15, String.valueOf(orderItem.getIdOrderItem())),
                     centerString(10, String.valueOf(orderItem.getIdOrder())),
                     centerString(10, String.valueOf(book.getId())),
@@ -832,14 +892,14 @@ public class OrderView extends GenericView{
             System.out.println(fmtOrderItem);
             bigToTal = getBigTotal(idOrder);
         }
-        System.out.println("------------------------------------------------------------------------------------------------------------------------------");
-        String fmtOrderFooter = String.format("|%111s  %,10d đ|", "Big Total:    ", bigToTal);
+        System.out.println("◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+        String fmtOrderFooter = String.format("┃%111s  %,10d đ┃", "Big Total:    ", bigToTal);
         System.out.println(fmtOrderFooter);
-        System.out.println("------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
     }
     private void orderItemHeader(){
         String fmtOrderItemHeader = String.format(
-                "|%-15s|%-10s|%-10s|%-50s|%-10s|%-10s|%-10s|",
+                "┃%-15s┃%-10s┃%-10s┃%-50s┃%-10s┃%-10s┃%-10s┃",
                 centerString(15, "Id Order Item"),
                 centerString(10, "Id Order"),
                 centerString(10, "Id Book"),
@@ -848,14 +908,15 @@ public class OrderView extends GenericView{
                 centerString(12, "Price"),
                 centerString(12, "Total")
         );
-        System.out.println("------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("◤━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◥");
         System.out.println(fmtOrderItemHeader);
+        System.out.println("◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
     }
     private void orderItemContentForLoop(List<OrderItem> orderItems ){
         for (OrderItem orderItem : orderItems) {
             Book book = bookService.findBookById(orderItem.getIdBook());
             String fmtOrderItem = String.format(
-                    "|%-15s|%-10s|%-10s|%-50s|%10s|%,10d đ|%,10d đ|",
+                    "┃%-15s┃%-10s┃%-10s┃%-50s┃%10s┃%,10d đ┃%,10d đ┃",
                     centerString(15, String.valueOf(orderItem.getIdOrderItem())),
                     centerString(10, String.valueOf(orderItem.getIdOrder())),
                     centerString(10, String.valueOf(book.getId())),
@@ -866,11 +927,9 @@ public class OrderView extends GenericView{
             );
             System.out.println(fmtOrderItem);
         }
-        System.out.println("------------------------------------------------------------------------------------------------------------------------------");
-
+        System.out.println("◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
     }
-//            showDetailOrderViewByIdWithBorrow(
-//                idOrder,feeDeposit, feeBorrow, feeTerm, totalBorrow, totalReturn,feeBorrowPerDay,  LdayOrder, LdayTerm, LdayReturn, days);
+
     private void showDetailOrderViewByIdWithBorrow(
             long idOrder,long feeDeposit,long feeBorrow,long feeTerm,long totalBorrow,long totalReturn,long feeBorrowPerDay,
             Date dayOrder, Date dayTerm,Date dayReturn,long days ) {
@@ -878,12 +937,13 @@ public class OrderView extends GenericView{
         orderItemHeader();
         List<OrderItem> orderItems = orderItemService.findOrderItemListByIdOrder(idOrder);
         orderItemContentForLoop(orderItems);
-        System.out.println(String.format("|%80s %10s %20s %,10d đ|"     ,"Ngày mượn        : ",ddMMMyyyy(dayOrder)  ,"Tiền cọc   : ", feeDeposit));
-        System.out.println(String.format("|%80s %10s %20s %,10d đ|"     ,"Hạn              : ",ddMMMyyyy(dayTerm)   ,"Phí mượn   : ", feeBorrow));
-        System.out.println(String.format("|%80s %10s %20s %,10d đ|"     ,"Ngày trả         : ",ddMMMyyyy(dayReturn) ,"Phí trễ    : ", feeTerm));
-        System.out.println(String.format("|%80s %10s %20s %,10d đ|"     ,"Số ngày trễ      : ",days                 ,"Tổng cộng  : ", totalBorrow));
-        System.out.println(String.format("|%80s %,8d đ %20s %,10d đ|"  ,"Phí mỗi ngày trễ : ",feeBorrowPerDay      ,"Trả lại    : ", totalReturn));
-        System.out.println("------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println(String.format("┃%80s %10s %20s %,10d đ┃"     ,"Ngày mượn        : ",ddMMMyyyy(dayOrder)  ,"Tiền cọc   : ", feeDeposit));
+        System.out.println(String.format("┃%80s %10s %20s %,10d đ┃"     ,"Hạn trả          : ",ddMMMyyyy(dayTerm)   ,"Phí mượn   : ", feeBorrow));
+        System.out.println(String.format("┃%80s %10s %20s %,10d đ┃"     ,"Ngày trả         : ",ddMMMyyyy(dayReturn) ,"Phí trễ    : ", feeTerm));
+        System.out.println(String.format("┃%80s %10s %20s %,10d đ┃"     ,"Số ngày trễ      : ",days                 ,"Tổng cộng  : ", totalBorrow));
+        System.out.println(String.format("┃%80s %,8d đ %20s %,10d đ┃"   ,"Phí mỗi ngày trễ : ",feeBorrowPerDay      ,"Trả lại    : ", totalReturn));
+        System.out.println("◣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◢");
+        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------");
     }
     private void showDetailOrderViewById(long idOrder) {
         showOrdersViewById(idOrder);
@@ -937,5 +997,37 @@ public class OrderView extends GenericView{
             checkIdBookContain = true;
         }
         return checkIdBookContain;
+    }
+
+    private void bookCoffe() {
+        System.out.println("                       ╭──────────────────────────────────────────────────────────╮");
+        System.out.println("                       │                    BOOK STORE COFFEE                     │");
+        System.out.println("               ▂▃▅▇█▓▒░╰──────────────────────────────────────────────────────────╯░▒▓█▇▅▃▂");
+        System.out.println("┌╌╌╌╌╌╌╌╌╌╌╌┐ ╔════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("┊     V     ┊ ║╭─────────╮            ╭──╮  ║  ║                                           ║");
+        System.out.println("┊     I     ┊ ║╰─────────╯            ╰──╯  ║  ║                                           ║");
+        System.out.println("┊     E     ┊ ║┌─────────┐            ╭──╮  ║  ║                  BAR                      ║");
+        System.out.println("┊     W     ┊ ║│/////////│            ╰──╯  ║  ║                                           ║");
+        System.out.println("┊           ┊ ║└─────────┘            ╭──╮  ║  ╚═══════════════════════════════════════════║");
+        System.out.println("┊     K     ┊ ║╭─────────╮            ╰──╯  ╚══════════════════════════════════════════════║");
+        System.out.println("┊     H     ┊ ║╰─────────╯            ╭──╮  ╭──╮  ╭──╮  ╭──╮  ╭──╮  ╭──╮  ╭──╮  ╭──╮  ╭──╮ ║");
+        System.out.println("┊     Ô     ┊ ║-------------          ╰──╯  ╰──╯  ╰──╯  ╰──╯  ╰──╯  ╰──╯  ╰──╯  ╰──╯  ╰──╯ ║");
+        System.out.println("┊     N     ┊ ║╭─────────╮                                                                 ║");
+        System.out.println("┊     G     ┊ ║╰─────────╯                                                                 ║");
+        System.out.println("┊           ┊ ║┌─────────┐                  ╭──╮  ┌────────┐  ╭──╮ ┊ ╭──╮  ┌────────┐  ╭──╮║");
+        System.out.println("┊     Đ     ┊ ║│/////////│                  │  │  │        │  │  │ ┊ │  │  │        │  │  │║");
+        System.out.println("┊     Ẹ     ┊ ║└─────────┘                  │  │  │////////│  │  │ ┊ │  │  │////////│  │  │║");
+        System.out.println("┊     P     ┊ ║╭─────────╮                  │  │  │        │  │  │ ┊ │  │  │        │  │  │║");
+        System.out.println("┊           ┊ ║╰─────────╯                  ╰──╯  └────────┘  ╰──╯ ┊ ╰──╯  └────────┘  ╰──╯║");
+        System.out.println("└╌╌╌╌╌╌╌╌╌╌╌┘ ╚════════════╗           ╔═══════════════════════════════════════════════════╝");
+        System.out.println("┌✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿┐             ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐");
+        System.out.println("┊           BỒN HOA      ┊             ┊                      VIEW ĐẸP                     ┊");
+        System.out.println("└✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿┘             └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘");
+        System.out.println("--Nhập tên--");
+        String name = scanner.nextLine();
+        System.out.println("--Số lượng người--");
+        String numberStr = inputLong();
+        long numberGuest = Long.parseLong(numberStr);
+        System.out.println("--Chọn chỗ--");
     }
 }
