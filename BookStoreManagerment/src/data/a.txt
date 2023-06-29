@@ -1,0 +1,11 @@
+----account
+id, account, password, name, email, adress, eRole
+
+----book
+id, name, author, price, avaiale, amount, date
+
+----order
+id, name, total, date, eStatus
+
+----order Item
+id, idOrder, idBook, amount
